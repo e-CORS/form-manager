@@ -1,6 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
-
+	import CustomButton from '../components/CustomButton.svelte';
 	const handleStart = () => {
 		goto('/home');
 	};
@@ -12,11 +12,6 @@
 		<span class="text-sm text-gray-700 text-center mt-2">
 			A website that allows you to generate your own forms and use them everywhere!</span
 		>
-		<button
-			class="rounded-sm text-white text-xs bg-slate-900 py-1 px-3 mt-10"
-			on:click={handleStart}
-		>
-			Get started
-		</button>
+		<CustomButton buttonText="Get started" buttonCta={handleStart} customClass="mt-3" />
 	</div>
 </div>

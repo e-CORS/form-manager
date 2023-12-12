@@ -48,7 +48,7 @@
 </script>
 
 {#if loading}
-	<div class="w-full h-full bg-gray-900 flex justify-center items-center text-gray-300 text-xl">
+	<div class="w-full h-full bg-indigo-800 flex justify-center items-center text-gray-300 text-xl">
 		Loading ...
 	</div>
 {:else}
