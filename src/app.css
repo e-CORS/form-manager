@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+	html {
+		font-family: 'Red Hat Display', system-ui, sans-serif;
+	}
+	p {
+		font-family: 'Public Sans', system-ui, sans-serif;
+	}
+	span {
+		font-family: 'Public Sans', system-ui, sans-serif;
+	}
+	button {
+		font-family: 'Public Sans', system-ui, sans-serif;
+	}
+}
