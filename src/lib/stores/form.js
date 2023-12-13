@@ -1,5 +1,6 @@
 import { db, auth } from '$lib/firebase/firebase';
 import {
+	getDoc,
 	addDoc,
 	collection,
 	doc,
@@ -9,6 +10,10 @@ import {
 	where,
 	deleteDoc
 } from 'firebase/firestore';
+import { writable } from 'svelte/store';
+
+export const currentForm = writable(null);
+
 export const formHandler = {
 	async createForm(form) {
 		try {
@@ -55,6 +60,22 @@ export const formHandler = {
 			console.log('Form deleted successfully');
 		} catch (error) {
 			console.error('Error deleting form: ', error);
+		}
+	},
+	async getFormById(formId) {
+		const docRef = doc(db, 'forms', formId);
+		try {
+			const docSnap = await getDoc(docRef);
+
+			if (docSnap.exists()) {
+				return docSnap.data();
+			} else {
+				console.error('No form found for that id');
+				return null;
+			}
+		} catch (error) {
+			console.error('Error getting form:', error);
+			return null;
 		}
 	}
 };

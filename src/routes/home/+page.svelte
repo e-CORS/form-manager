@@ -50,7 +50,6 @@
 				}
 			]
 		};
-		console.log('creating form...');
 		await formHandler.createForm(form);
 		await updateForms();
 	};
