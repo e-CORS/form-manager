@@ -24,7 +24,7 @@ export const formHandler = {
 				formFields: form.fields,
 				userId: user.uid
 			});
-			console.log('Form ID: ', docRef.id);
+			return docRef.id;
 		} catch (error) {
 			console.error(error.message);
 		}
