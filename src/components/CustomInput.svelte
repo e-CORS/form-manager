@@ -19,7 +19,6 @@
 	});
 
 	const handleDelete = (type, optionIndex = 0) => {
-		console.log({ fieldIndex: index, type, optionIndex });
 		dispatch('deleteField', { fieldIndex: index, type, optionIndex });
 	};
 </script>

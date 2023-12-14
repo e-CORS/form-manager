@@ -27,7 +27,6 @@
 			console.log('There was an auth error', errorMessage);
 		}
 		authenticating = false;
-		console.log({ email, password });
 	};
 </script>
 

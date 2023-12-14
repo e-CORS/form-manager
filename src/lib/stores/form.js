@@ -1,4 +1,5 @@
 import { db, auth } from '$lib/firebase/firebase';
+// import { setContext } from 'svelte';
 import {
 	getDoc,
 	addDoc,
@@ -20,8 +21,8 @@ export const formHandler = {
 			const user = auth.currentUser;
 			if (!user.uid) throw new Error("Current user doesn't have and id");
 			const docRef = await addDoc(collection(db, 'forms'), {
-				formTitle: form.title,
-				formFields: form.fields,
+				formTitle: form.formTitle,
+				formFields: form.formFields,
 				userId: user.uid
 			});
 			return docRef.id;
@@ -55,7 +56,6 @@ export const formHandler = {
 	},
 	async deleteForm(formId) {
 		try {
-			console.log('form id: ', formId);
 			await deleteDoc(doc(db, 'forms', formId));
 			console.log('Form deleted successfully');
 		} catch (error) {
@@ -78,4 +78,8 @@ export const formHandler = {
 			return null;
 		}
 	}
+};
+
+export const setCurrentForm = (form) => {
+	currentForm.set(form);
 };

@@ -1,12 +1,13 @@
 <script>
-	import { formHandler, currentForm } from '$lib/stores/form';
+	import { formHandler, setCurrentForm } from '$lib/stores/form';
 	import CustomButton from '../../../components/CustomButton.svelte';
 	import CustomInput from '../../../components/CustomInput.svelte';
+	import FormViewer from '../../../components/FormViewer.svelte';
 	import { goto } from '$app/navigation';
 
-	const form = {
-		title: 'Title',
-		fields: []
+	let form = {
+		formTitle: 'Title',
+		formFields: []
 	};
 	const inputTypeOptions = [
 		{ value: 'text', label: 'Make field text' },
@@ -19,17 +20,17 @@
 		required: false,
 		type: 'text'
 	};
-
-	const handleAddInputToForm = () => {
+	const handleAddInputToForm = async () => {
 		if (selectedInputInfo.type === 'select') {
 			selectedInputInfo.options = dropdownOptions;
 		}
-		form.fields.push({
+		form.formFields.push({
 			...selectedInputInfo,
-			id: `id_form_${selectedInputInfo.type}_${form.fields.length}`,
+			id: `id_form_${selectedInputInfo.type}_${form.formFields.length}`,
 			placeholder: selectedInputInfo.label,
 			value: ''
 		});
+		setCurrentForm(form);
 		selectedInputInfo = {
 			label: '',
 			required: false,
@@ -46,9 +47,8 @@
 	};
 
 	const handleCreateForm = async () => {
-		console.log({ form });
 		const formId = await formHandler.createForm(form);
-		currentForm.set(form);
+		setCurrentForm(form);
 		goto(`/form?formId=${formId}`);
 	};
 </script>
@@ -58,7 +58,7 @@
 		type="text"
 		label="Form title"
 		placeholder="This is my form title"
-		bind:value={form.title}
+		bind:value={form.formTitle}
 	/>
 	<CustomInput
 		type="text"
@@ -85,12 +85,15 @@
 		label="Make field required?"
 		bind:value={selectedInputInfo.required}
 	/>
-	<!-- {#if selectedInputInfo.length > 0} -->
-	<CustomButton
-		buttonText="Add input to form"
-		buttonCta={handleAddInputToForm}
-		customClass="mt-4"
-	/>
-	<CustomButton buttonText="Create form" buttonCta={handleCreateForm} customClass="mt-4" />
-	<!-- {/if} -->
+	{#if Object.keys(selectedInputInfo).length > 0 > 0}
+		<CustomButton
+			buttonText="Add input to form"
+			buttonCta={handleAddInputToForm}
+			customClass="mt-4"
+		/>
+		<CustomButton buttonText="Create form" buttonCta={handleCreateForm} customClass="mt-4" />
+	{/if}
+	{#if form.formFields.length > 0}
+		<FormViewer />
+	{/if}
 </div>

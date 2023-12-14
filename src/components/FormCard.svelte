@@ -1,5 +1,5 @@
 <script>
-	import { formHandler, currentForm } from '$lib/stores/form';
+	import { formHandler, setCurrentForm } from '$lib/stores/form';
 	import { createEventDispatcher } from 'svelte';
 	import { goto } from '$app/navigation';
 
@@ -7,7 +7,7 @@
 
 	const dispatch = createEventDispatcher();
 	const handleView = () => {
-		currentForm.set(form);
+		setCurrentForm(form);
 		console.log('view form', form.id);
 		dispatch('updateForms');
 		goto(`/form?formId=${form.id}`);

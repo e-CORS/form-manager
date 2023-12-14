@@ -1,5 +1,5 @@
 <script>
-	import { currentForm, formHandler } from '$lib/stores/form';
+	import { currentForm, formHandler, setCurrentForm } from '$lib/stores/form';
 	import { get } from 'svelte/store';
 	import CustomInput from '../../../components/CustomInput.svelte';
 	import CustomButton from '../../../components/CustomButton.svelte';
@@ -14,7 +14,7 @@
 			if (formData) {
 				loading = false;
 				form = formData;
-				currentForm.set(form);
+				setCurrentForm(form);
 			} else {
 				goto('/home');
 			}
@@ -24,12 +24,10 @@
 	}
 
 	const handleView = () => {
-		console.log('view form', formId);
 		goto(`/form?formId=${formId}`);
 	};
 
 	const handleDelete = () => {
-		console.log('delete form', formId);
 		formHandler.deleteForm(formId);
 		goto('/home');
 	};
