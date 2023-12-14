@@ -16,9 +16,9 @@
 		console.log('update form', form.id);
 		dispatch('updateForms');
 	};
-	const handleDelete = () => {
+	const handleDelete = async () => {
 		console.log('delete form', form.id);
-		formHandler.deleteForm(form.id);
+		await formHandler.deleteForm(form.id);
 		dispatch('updateForms');
 	};
 </script>

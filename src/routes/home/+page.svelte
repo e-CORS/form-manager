@@ -7,9 +7,11 @@
 	import { goto } from '$app/navigation';
 
 	let forms = [];
+	let loading = true;
 	onMount(async () => {
 		checkAuth();
 		forms = await formHandler.getFormsByUser();
+		loading = false;
 	});
 
 	const handleCreateForm = async () => {
@@ -62,11 +64,17 @@
 	};
 </script>
 
-<div class="w-full h-full bg-white flex flex-col p-4">
-	<CustomButton buttonText="Create form" buttonCta={handleCreateForm} />
-	<div class="w-full h-full flex gap-5 flex-wrap mt-4 justify-center">
-		{#each forms as form}
-			<FormCard {form} on:updateForms={updateForms} />
-		{/each}
+{#if loading}
+	<div class="w-full h-full flex justify-center items-center text-gray-300 text-xl">
+		Loading ...
 	</div>
-</div>
+{:else}
+	<div class="w-full bg-white flex flex-col p-4">
+		<CustomButton buttonText="Create form" buttonCta={handleCreateForm} />
+		<div class="w-full h-full flex gap-5 flex-wrap mt-4 justify-center">
+			{#each forms as form}
+				<FormCard {form} on:updateForms={updateForms} />
+			{/each}
+		</div>
+	</div>
+{/if}
