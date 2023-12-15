@@ -32,9 +32,9 @@
 </script>
 
 <div
-	class="w-screen h-screen backdrop-blur-md absolute z-10 top-0 flex justify-center items-center"
+	class="w-screen h-screen backdrop-blur-lg absolute z-10 top-0 flex justify-center items-center"
 >
-	<div class=" p-20 rounded-lg shadow-md border-black relative bg-white">
+	<div class="grid p-20 rounded-lg shadow-2xl shadow-indigo-400 border-black relative bg-white">
 		<button on:click={closeModal} class="absolute top-4 right-10"
 			><img src="/img/delete-icon.svg" alt="delete" class="w-6 h-6" /></button
 		>
@@ -47,7 +47,7 @@
 			buttonText="Generate"
 			buttonCta={createForm}
 			loading={sending}
-			customClass="mt-3"
+			customClass="mt-3 justify-self-center"
 		/>
 	</div>
 </div>

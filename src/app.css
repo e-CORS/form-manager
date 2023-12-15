@@ -4,6 +4,7 @@
 @layer base {
 	html {
 		font-family: 'Red Hat Display', system-ui, sans-serif;
+		transition: all 2 ease-in-out;
 	}
 	p {
 		font-family: 'Public Sans', system-ui, sans-serif;

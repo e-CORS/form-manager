@@ -52,13 +52,20 @@
 		Loading ...
 	</div>
 {:else}
-	<Header>
-		<button class="text-xl font-bold tracking-tight text-white" on:click={goHome}>
-			Form Manager
-		</button>
-		{#if currentPath !== '/' && currentPath !== '/login'}
-			<button class="text-xs font-normal text-white" on:click={handleLoginLogout}> Logout </button>
-		{/if}
-	</Header>
+	{#if currentPath !== '/'}
+		<Header>
+			<button class="text-xl font-bold tracking-tight text-white" on:click={goHome}>
+				Form Manager
+			</button>
+			{#if currentPath !== '/' && currentPath !== '/login'}
+				<button
+					class="text-md font-normal text-gray-200 hover:text-white"
+					on:click={handleLoginLogout}
+				>
+					Logout
+				</button>
+			{/if}
+		</Header>
+	{/if}
 	<slot />
 {/if}
