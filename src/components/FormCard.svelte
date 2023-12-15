@@ -14,6 +14,7 @@
 	};
 	const handleUpdate = () => {
 		console.log('update form', form.id);
+		goto(`/form/update?formId=${form.id}`);
 		dispatch('updateForms');
 	};
 	const handleDelete = async () => {
@@ -31,13 +32,13 @@
 	tabindex="0"
 >
 	<div class="absolute right-5 top-2 flex gap-x-1">
-		<button on:click={handleView}>
+		<button on:click|stopPropagation={handleView}>
 			<img src="/img/view-icon.svg" alt="view form" class="w-3 h-3" />
 		</button>
-		<button on:click={handleUpdate}>
+		<button on:click|stopPropagation={handleUpdate}>
 			<img src="/img/update-icon.svg" alt="view form" class="w-3 h-3" />
 		</button>
-		<button on:click={handleDelete}>
+		<button on:click|stopPropagation={handleDelete}>
 			<img src="/img/delete-icon.svg" alt="view form" class="w-3 h-3" />
 		</button>
 	</div>
