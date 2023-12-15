@@ -1,13 +1,32 @@
 <script>
 	import CustomInput from '../components/CustomInput.svelte';
+	import { goto } from '$app/navigation';
 	import { createEventDispatcher } from 'svelte';
 	import CustomButton from '../components/CustomButton.svelte';
+	import { formHandler } from '$lib/stores/form';
 
 	const dispatch = createEventDispatcher();
 	const closeModal = () => {
 		dispatch('closeModal');
 	};
-	const createForm = () => {};
+
+	let sending = false;
+	const createForm = async () => {
+		sending = true;
+		const form = await fetch('/api/form-with-ai', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ promptText })
+		})
+			.then((res) => res.json())
+			.catch((error) => console.error('Error:', error))
+			.then((response) => JSON.parse(response.form));
+		const createdFormId = await formHandler.createForm(form);
+		closeModal();
+		goto(`/form?formId=${createdFormId}`);
+	};
 
 	export let promptText = '';
 </script>
@@ -24,6 +43,11 @@
 			Describe what you want your form to get you!
 		</p>
 		<CustomInput type="text" bind:value={promptText} label="" />
-		<CustomButton buttonText="Generate" buttonCta={createForm} />
+		<CustomButton
+			buttonText="Generate"
+			buttonCta={createForm}
+			loading={sending}
+			customClass="mt-3"
+		/>
 	</div>
 </div>
